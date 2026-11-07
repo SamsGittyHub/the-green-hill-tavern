@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: update to your real domain once connected
+Sitemap: https://the-green-hill-tavern.up.railway.app/sitemap.xml
