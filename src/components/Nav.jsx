@@ -117,7 +117,7 @@ export default function Nav() {
               ))}
             </ul>
             <div className="mt-10 text-sm text-ink/75">
-              <p>{pub.street}, {pub.town} {pub.postcode}</p>
+              <p>{pub.street}, {pub.town}, {pub.area} {pub.postcode}</p>
               <a href={pub.phoneHref} className="mt-1 inline-block font-semibold text-brass-deep">{pub.phone}</a>
             </div>
           </motion.div>

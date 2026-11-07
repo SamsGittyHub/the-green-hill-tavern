@@ -26,7 +26,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <Reveal className="sm:col-span-2 lg:col-span-2">
             <p className="max-w-sm font-display text-[1.6rem] leading-snug text-paper/90">
-              Free house, {pub.town}. Real ales, honest food and a warm welcome since {pub.established}.
+              Free house, {pub.town}, {pub.county}. Real ales, honest food and a warm welcome since {pub.established}.
             </p>
           </Reveal>
 
@@ -44,7 +44,7 @@ export default function Footer() {
           <Reveal className="text-sm leading-relaxed text-paper/80">
             <p className="label mb-4 text-[0.65rem] text-brass">Visit</p>
             <address className="not-italic">
-              {pub.street}, {pub.town} {pub.postcode}<br />
+              {pub.street}, {pub.town}<br />{pub.area} {pub.postcode}<br />
               <a href={pub.phoneHref} className="link-u">{pub.phone}</a><br />
               <a href={`mailto:${pub.email}`} className="link-u break-all">{pub.email}</a>
             </address>

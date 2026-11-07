@@ -24,7 +24,7 @@ export default function About() {
         </div>
         {/* TODO: replace with the pub's real history */}
         <Reveal as="p" className="mx-auto mt-12 max-w-2xl text-[1.15rem] leading-[1.8] text-ink/80 first-letter:float-left first-letter:mr-2 first-letter:mt-1.5 first-letter:font-display first-letter:text-[4.6rem] first-letter:leading-[0.78] first-letter:text-brass-deep">
-          The Green Hill started life as a coaching inn for carters coming in off the Ridden road. The bay windows went in around the
+          The Green Hill started life as a coaching inn for carters coming through Riddings. The bay windows went in around the
           turn of the last century, the long pine bar has been polished by elbows ever since, and it’s been a free house, pouring
           whatever we think is good, for as long as anyone at the bar can tell you.
         </Reveal>

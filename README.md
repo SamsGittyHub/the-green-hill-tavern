@@ -1,6 +1,6 @@
 # The Green Hill Tavern
 
-Website for **The Green Hill Tavern**, a traditional free house at 14 High Street, Ridden, RD1 4XX.
+Website for **The Green Hill Tavern**, a traditional free house at 22 West Street, Riddings, Alfreton, Derbyshire DE55 4AS.
 
 Single-page site with anchor navigation: About, Menu, What's On, Gallery, Reviews, Opening Hours & Find Us, Bookings.
 

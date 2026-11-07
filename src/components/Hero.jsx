@@ -50,7 +50,7 @@ export default function Hero() {
           </div>
           <figcaption className="label mt-5 flex items-center justify-between text-ink/70">
             <span>{pub.street}</span>
-            <span>{pub.town}</span>
+            <span>{pub.town}, {pub.area}</span>
           </figcaption>
         </motion.figure>
 
@@ -70,7 +70,7 @@ export default function Hero() {
 
           <div className="mt-10 grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
             <motion.p {...rise(0.32)} className="max-w-[36ch] text-[1.075rem] leading-relaxed text-ink/80">
-              Hand-pulled ales, a Sunday roast worth booking for and a quiz every Thursday. On the corner of the High Street since {pub.established}.
+              Hand-pulled ales, a Sunday roast worth booking for and a quiz every Thursday. On the corner of West Street, {pub.town}, since {pub.established}.
             </motion.p>
             <motion.div {...rise(0.44)} className="flex flex-col items-start gap-3 sm:items-end">
               <a href="#book" className="btn btn-fascia">

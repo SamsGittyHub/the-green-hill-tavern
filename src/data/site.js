@@ -3,9 +3,11 @@
 
 export const pub = {
   name: 'The Green Hill Tavern',
-  street: '14 High Street',
-  town: 'Ridden',
-  postcode: 'RD1 4XX',
+  street: '22 West Street',
+  town: 'Riddings',
+  area: 'Alfreton',
+  county: 'Derbyshire',
+  postcode: 'DE55 4AS',
   country: 'England',
   // TODO: real phone number (also update index.html JSON-LD)
   phone: '01234 567890',
@@ -19,11 +21,11 @@ export const pub = {
     facebook: 'https://www.facebook.com/',
     instagram: 'https://www.instagram.com/',
   },
-  // TODO: replace with the "Embed a map" iframe src from Google Maps for the exact pin
+  // Optional: swap for the "Embed a map" iframe src from Google Maps if the pin lands slightly off
   mapEmbed:
-    'https://www.google.com/maps?q=14+High+Street,+Ridden,+RD1+4XX&output=embed',
+    'https://www.google.com/maps?q=Greenhill+Tavern,+22+West+St,+Riddings,+Alfreton+DE55+4AS&output=embed',
   directions:
-    'https://www.google.com/maps/dir/?api=1&destination=14+High+Street,+Ridden,+RD1+4XX',
+    'https://www.google.com/maps/dir/?api=1&destination=22+West+St,+Riddings,+Alfreton+DE55+4AS',
 }
 
 // day: 0 = Sunday ... 6 = Saturday (matches Date.getDay())

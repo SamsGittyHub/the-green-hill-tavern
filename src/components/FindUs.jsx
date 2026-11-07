@@ -10,7 +10,7 @@ export default function FindUs() {
     <section id="find-us" aria-labelledby="find-us-title" className="relative bg-paper-2 lg:min-h-[52rem]">
       <div className="relative h-[22rem] sm:h-[28rem] lg:absolute lg:inset-0 lg:h-auto">
         <iframe
-          title="Map showing The Green Hill Tavern, 14 High Street, Ridden"
+          title="Map showing The Green Hill Tavern, 22 West Street, Riddings, Alfreton"
           src={pub.mapEmbed}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
@@ -61,7 +61,7 @@ export default function FindUs() {
           <div className="mt-8 grid grid-cols-1 gap-6 border-t border-ink/15 pt-6 sm:grid-cols-[0.8fr_1.2fr]">
             <address className="not-italic leading-relaxed">
               <p className="label mb-2 text-[0.65rem] text-ink/60">Address</p>
-              {pub.street}<br />{pub.town} {pub.postcode}
+              {pub.street}<br />{pub.town}, {pub.area}<br />{pub.postcode}
               <br />
               <a href={pub.directions} target="_blank" rel="noopener noreferrer" className="link-u is-underlined mt-2 inline-block text-sm font-semibold text-brass-deep">
                 Get directions<span className="sr-only"> (opens Google Maps in a new tab)</span>
