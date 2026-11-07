@@ -21,43 +21,38 @@ const Icon = {
 
 export default function Footer() {
   return (
-    <footer className="bg-forest-950 pb-10 pt-20 text-cream-50 lg:pt-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-          <Reveal className="md:col-span-5">
-            <p className="font-display text-[clamp(2.25rem,4vw,3.25rem)] leading-[0.95] tracking-[-0.03em]">
-              The Green Hill <em className="text-brass-400">Tavern</em>
-            </p>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream-50/65">
+    <footer className="bg-fascia pt-20 text-paper">
+      <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal className="sm:col-span-2 lg:col-span-2">
+            <p className="max-w-sm font-display text-[1.6rem] leading-snug text-paper/90">
               Free house, {pub.town}. Real ales, honest food and a warm welcome since {pub.established}.
             </p>
           </Reveal>
 
-          <nav aria-label="Footer" className="md:col-span-3">
-            <p className="eyebrow mb-4 text-[0.65rem] text-cream-50/60">Explore</p>
+          <nav aria-label="Footer">
+            <p className="label mb-4 text-[0.65rem] text-brass">Explore</p>
             <Stagger as="ul" className="space-y-2.5 text-sm" gap={0.04}>
               {nav.map(([href, label]) => (
                 <StaggerItem as="li" key={href}>
-                  <a href={href} className="link-u text-cream-50/80 hover:text-cream-50">{label}</a>
+                  <a href={href} className="link-u text-paper/80 hover:text-paper">{label}</a>
                 </StaggerItem>
               ))}
             </Stagger>
           </nav>
 
-          <Reveal className="text-sm leading-relaxed text-cream-50/80 md:col-span-4">
-            <p className="eyebrow mb-4 text-[0.65rem] text-cream-50/60">Visit</p>
+          <Reveal className="text-sm leading-relaxed text-paper/80">
+            <p className="label mb-4 text-[0.65rem] text-brass">Visit</p>
             <address className="not-italic">
-              {pub.street}, {pub.town} {pub.postcode}
-              <br />
-              <a href={pub.phoneHref} className="link-u">{pub.phone}</a>
-              <br />
+              {pub.street}, {pub.town} {pub.postcode}<br />
+              <a href={pub.phoneHref} className="link-u">{pub.phone}</a><br />
               <a href={`mailto:${pub.email}`} className="link-u break-all">{pub.email}</a>
             </address>
             <ul className="mt-6 flex gap-2">
               {Object.entries(pub.social).map(([name, url]) => (
                 <li key={name}>
                   <a href={url} target="_blank" rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-cream-50/20 text-cream-50/80 transition-[transform,color,border-color] duration-300 ease-(--ease-snap) hover:-translate-y-0.5 hover:border-brass-400 hover:text-brass-300">
+                    className="flex h-11 w-11 items-center justify-center border border-paper/20 text-paper/80 transition-[transform,color,border-color] duration-300 ease-(--ease-snap) hover:-translate-y-0.5 hover:border-brass hover:text-brass-light">
                     {Icon[name]}
                     <span className="sr-only">{name === 'facebook' ? 'Facebook' : 'Instagram'} (opens in a new tab)</span>
                   </a>
@@ -66,12 +61,19 @@ export default function Footer() {
             </ul>
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-cream-50/10 pt-6 text-xs text-cream-50/60 sm:flex-row sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} {pub.name}. Please drink responsibly. <a href="https://www.drinkaware.co.uk" target="_blank" rel="noopener noreferrer" className="link-u is-underlined">drinkaware.co.uk</a></p>
-          {/* TODO: add your company/licence details and a privacy policy link if you collect any data */}
-          <p>Children welcome until 9pm. Dogs welcome any time.</p>
-        </div>
+      {/* Full-width signwritten name, like the lettering on the gable end */}
+      <Reveal className="mt-20 overflow-hidden border-y border-brass/25 py-6">
+        <p aria-hidden="true" className="sign whitespace-nowrap text-center text-[clamp(1.6rem,6.2vw,6.5rem)] leading-none tracking-[0.08em] text-paper">
+          The Green Hill <span className="text-brass">Tavern</span>
+        </p>
+      </Reveal>
+
+      <div className="mx-auto flex max-w-[90rem] flex-col gap-3 px-4 py-6 text-xs text-paper/60 sm:flex-row sm:justify-between sm:px-6 lg:px-10">
+        <p>&copy; {new Date().getFullYear()} {pub.name}. Please drink responsibly. <a href="https://www.drinkaware.co.uk" target="_blank" rel="noopener noreferrer" className="link-u is-underlined">drinkaware.co.uk</a></p>
+        {/* TODO: add your company/licence details and a privacy policy link if you collect any data */}
+        <p>Children welcome until 9pm. Dogs welcome any time.</p>
       </div>
     </footer>
   )

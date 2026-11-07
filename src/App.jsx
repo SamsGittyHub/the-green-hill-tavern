@@ -15,10 +15,10 @@ export default function App() {
   return (
     // reducedMotion="user": transforms are dropped for visitors who ask for less motion; opacity fades remain
     <MotionConfig reducedMotion="user">
-      <a href="#main" className="sr-only z-[70] rounded bg-brass-400 px-4 py-2 text-forest-950 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+      <a href="#main" className="sr-only z-[70] rounded bg-brass px-4 py-2 text-fascia focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>
-      <div className="grain">
+      <>
         <Nav />
         <main id="main">
           <Hero />
@@ -32,7 +32,7 @@ export default function App() {
           <Book />
         </main>
         <Footer />
-      </div>
+      </>
     </MotionConfig>
   )
 }

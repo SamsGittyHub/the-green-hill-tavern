@@ -5,75 +5,83 @@ import { hours, pub } from '../data/site'
 import { openStatus } from '../lib/hours'
 import { useMedia } from '../lib/useMedia'
 
+/**
+ * Asymmetric split hero on paper: viewport-scale serif name on the left,
+ * the real frontage in an arch-topped frame on the right.
+ */
 export default function Hero() {
   const ref = useRef(null)
   const reduce = useReducedMotion()
-  const desktop = useMedia('(min-width: 768px)')
+  const desktop = useMedia('(min-width: 1024px)')
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
   const status = openStatus(hours)
 
-  const fade = (delay) => ({
-    initial: { opacity: 0, y: 20, filter: 'blur(6px)' },
-    animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-    transition: { ...springs.snappy, delay, opacity: { duration: 0.6, ease: easeSnap, delay }, filter: { duration: 0.6, ease: easeSnap, delay } },
+  const rise = (delay) => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { ...springs.snappy, delay, opacity: { duration: 0.6, ease: easeSnap, delay } },
   })
 
   return (
-    <section id="top" ref={ref} aria-label="Welcome" className="relative isolate min-h-[100dvh] overflow-hidden bg-forest-950 text-cream-50">
-      {/* Photograph: Ken Burns settle, then slow parallax on desktop */}
-      <motion.div
-        className="absolute inset-0 -z-10 will-change-transform"
-        style={reduce || !desktop ? undefined : { y }}
-        initial={{ scale: 1.06, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.9, ease: easeSnap }}
-      >
-        <img
-          src="/images/exterior-front.webp"
-          srcSet="/images/exterior-front-800.webp 800w, /images/exterior-front.webp 1448w"
-          sizes="100vw"
-          alt="The cream-painted front of The Green Hill Tavern on a summer's day, with hanging baskets, a hanging pub sign and picnic benches"
-          className="h-full w-full object-cover object-[60%_center] [filter:brightness(0.78)_saturate(0.8)] md:object-center"
-          fetchPriority="high"
-          loading="eager"
-          width="1448"
-          height="1086"
-        />
-      </motion.div>
+    <section id="top" ref={ref} aria-label="Welcome" className="on-paper relative overflow-hidden bg-paper pt-16">
+      <div className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-[90rem] grid-cols-1 gap-10 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[1.25fr_1fr] lg:items-end lg:gap-16 lg:px-10 lg:pb-16 lg:pt-12">
+        {/* Photo: arch-topped like a sash window, with a brass keyline set off the edge */}
+        <motion.figure
+          className="relative order-2 mx-auto w-full max-w-md self-center lg:order-2 lg:max-w-none lg:self-stretch"
+          initial={reduce ? { opacity: 0 } : { opacity: 0, clipPath: 'inset(100% -2rem -2rem -2rem)' }}
+          animate={reduce ? { opacity: 1 } : { opacity: 1, clipPath: 'inset(-2rem -2rem -2rem -2rem)' }}
+          transition={{ duration: 0.9, ease: easeSnap, delay: 0.1 }}
+        >
+          <div aria-hidden="true" className="absolute -inset-2 bottom-10 rounded-t-[999px] border border-brass-deep/40 sm:-inset-3 sm:bottom-9" />
+          <div className="relative aspect-[5/6] overflow-hidden rounded-t-[999px] bg-paper-3 lg:aspect-auto lg:h-[calc(100%-3rem)] lg:min-h-[30rem]">
+            <motion.img
+              src="/images/exterior-front.webp"
+              srcSet="/images/exterior-front-800.webp 800w, /images/exterior-front.webp 1448w"
+              sizes="(min-width: 1024px) 42vw, 90vw"
+              alt="The cream-painted front of The Green Hill Tavern on a summer's day, with hanging baskets, a hanging pub sign and picnic benches"
+              className="absolute inset-x-0 top-[-6%] h-[112%] w-full object-cover object-[48%_center] will-change-transform"
+              style={reduce || !desktop ? undefined : { y: imgY }}
+              fetchPriority="high"
+              loading="eager"
+              width="1448"
+              height="1086"
+            />
+          </div>
+          <figcaption className="label mt-5 flex items-center justify-between text-ink/70">
+            <span>{pub.street}</span>
+            <span>{pub.town}</span>
+          </figcaption>
+        </motion.figure>
 
-      {/* Scrims: deep green rising from bottom-left keeps type readable */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-forest-800 opacity-60 mix-blend-multiply" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-950 via-forest-950/60 to-forest-950/25 md:via-forest-950/45 md:to-forest-950/15" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_70%_at_0%_100%,rgb(15_31_24/0.85),transparent_70%)]" />
-
-      <div className="mx-auto flex min-h-[100dvh] max-w-7xl flex-col justify-end px-4 pb-10 pt-28 sm:px-6 sm:pb-14 lg:px-10 lg:pb-16">
-        <motion.p {...fade(0.05)} className="eyebrow mb-5 text-brass-300 sm:mb-6">
-          Free House &middot; {pub.street}, {pub.town}
-        </motion.p>
-
-        <WordReveal
-          as="h1"
-          animateOnMount
-          delay={0.12}
-          lines={['The Green Hill', { text: 'Tavern', italic: true }]}
-          className="font-display font-[460] text-[clamp(3.4rem,12.5vw,11.5rem)] leading-[0.86] tracking-[-0.035em] [font-variation-settings:'opsz'_72] [text-shadow:0_2px_40px_rgb(15_31_24/0.35)]"
-        />
-
-        <div className="mt-8 flex flex-col gap-8 sm:mt-10 md:flex-row md:items-end md:justify-between">
-          <motion.p {...fade(0.32)} className="max-w-[34ch] text-[clamp(1.05rem,1.3vw,1.25rem)] leading-relaxed text-cream-50/85">
-            Hand-pulled ales, Sunday roasts worth booking for, and a quiz on Thursdays. Your local since {pub.established}.
+        <div className="order-1 lg:order-1 lg:pb-2">
+          <motion.p {...rise(0.05)} className="label flex items-center gap-3 text-brass-deep">
+            <span aria-hidden="true" className="h-px w-8 bg-current" />
+            Free house &middot; Est. {pub.established}
           </motion.p>
 
-          <motion.div {...fade(0.44)} className="flex flex-col items-start gap-4 md:items-end">
-            <a href="#book" className="btn btn-brass">
-              Book a table <span aria-hidden="true" className="arrow">&rarr;</span>
-            </a>
-            <p className="flex items-center gap-2 text-sm text-cream-50/75" aria-live="polite">
-              <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${status.open ? 'bg-brass-400' : 'bg-cream-50/40'}`} />
-              {status.text}
-            </p>
-          </motion.div>
+          <WordReveal
+            as="h1"
+            animateOnMount
+            delay={0.1}
+            lines={['The Green', { text: 'Hill', italic: true }, 'Tavern']}
+            className="mt-6 font-display text-[clamp(3.75rem,9.6vw,10rem)] leading-[0.86] tracking-[-0.02em] text-fascia [&_.italic]:text-forest"
+          />
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
+            <motion.p {...rise(0.32)} className="max-w-[36ch] text-[1.075rem] leading-relaxed text-ink/80">
+              Hand-pulled ales, a Sunday roast worth booking for and a quiz every Thursday. On the corner of the High Street since {pub.established}.
+            </motion.p>
+            <motion.div {...rise(0.44)} className="flex flex-col items-start gap-3 sm:items-end">
+              <a href="#book" className="btn btn-fascia">
+                Book a table <span aria-hidden="true" className="arrow">&rarr;</span>
+              </a>
+              <p className="flex items-center gap-2 text-sm text-ink/70" aria-live="polite">
+                <span aria-hidden="true" className={`h-2 w-2 rounded-full ${status.open ? 'bg-forest-2 shadow-[0_0_0_3px_rgb(43_74_58/0.18)]' : 'bg-ink/30'}`} />
+                {status.text}
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

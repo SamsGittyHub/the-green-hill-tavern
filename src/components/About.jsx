@@ -1,7 +1,6 @@
 import { ImageReveal, Reveal, Rule, Stagger, StaggerItem, WordReveal } from './motion'
-import { pub } from '../data/site'
 
-// TODO: confirm these facts (cask lines, dogs, parking etc.)
+// TODO: confirm these facts (cask lines, dogs, garden etc.)
 const facts = [
   ['Free house', 'No brewery tie. We pour what we like.'],
   ['Four cask lines', 'Rotating guests from small local breweries.'],
@@ -11,52 +10,57 @@ const facts = [
 
 export default function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="on-light relative bg-cream-50 py-24 text-ink sm:py-28 lg:py-36">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
-        <div className="lg:col-span-7 lg:pr-8">
-          <Reveal as="p" className="eyebrow text-brass-700">Our pub &middot; Est. {pub.established}</Reveal>
+    <section id="about" aria-labelledby="about-title" className="on-paper relative bg-paper py-24 sm:py-32 lg:py-40">
+      <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
+        {/* Centred editorial lede */}
+        <div className="mx-auto max-w-4xl text-center">
+          <Reveal as="p" className="label text-brass-deep">Our pub</Reveal>
           <WordReveal
             as="h2"
             id="about-title"
-            lines={['On the corner of High Street and West Street,', { text: 'pouring pints since before anyone can remember.', italic: true }]}
-            className="mt-6 text-balance font-display text-[clamp(2.2rem,4.6vw,4.25rem)] font-[380] leading-[1.02] tracking-[-0.025em] text-forest-900"
+            lines={['A corner local with', { text: 'a long memory.', italic: true }]}
+            className="mt-6 text-balance font-display text-[clamp(2.6rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.015em] text-fascia [&_.italic]:text-forest"
           />
-          {/* TODO: replace with the pub's real history */}
-          <div className="mt-10 grid max-w-2xl gap-6 text-[1.0625rem] leading-[1.75] text-ink/80 sm:grid-cols-2 sm:gap-8">
-            <Reveal as="p">
-              The Green Hill started life as a coaching inn for carters coming in off the Ridden road. The bay windows went in
-              around the turn of the last century, and the long pine bar has been polished by elbows ever since.
-            </Reveal>
-            <Reveal as="p" delay={0.08}>
-              Today it’s a free house, which means no brewery tells us what to pour. Expect a well-kept house bitter, a
-              rotating guest or three, honest food from the kitchen and a fire going from October.
-            </Reveal>
-          </div>
         </div>
+        {/* TODO: replace with the pub's real history */}
+        <Reveal as="p" className="mx-auto mt-12 max-w-2xl text-[1.15rem] leading-[1.8] text-ink/80 first-letter:float-left first-letter:mr-2 first-letter:mt-1.5 first-letter:font-display first-letter:text-[4.6rem] first-letter:leading-[0.78] first-letter:text-brass-deep">
+          The Green Hill started life as a coaching inn for carters coming in off the Ridden road. The bay windows went in around the
+          turn of the last century, the long pine bar has been polished by elbows ever since, and it’s been a free house, pouring
+          whatever we think is good, for as long as anyone at the bar can tell you.
+        </Reveal>
 
-        <div className="lg:col-span-5 lg:pt-24">
-          <ImageReveal
-            src="/images/exterior-corner-800.webp"
-            srcSet="/images/exterior-corner-800.webp 800w, /images/exterior-corner.webp 1560w"
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            alt="The white gable end of the pub on the corner of West Street, painted with the words The Greenhill Tavern Free House"
-            loading="lazy"
-            width="1560"
-            height="986"
-            className="rounded-[2px] shadow-[0_30px_60px_-30px_rgb(20_41_31/0.45)]"
-            imgClassName="aspect-[4/3] w-full object-cover object-[45%_center]"
-          />
-          <Reveal as="p" className="mt-3 text-xs tracking-wide text-ink/60">The West Street gable, still signwritten by hand.</Reveal>
+        <div className="mt-20 grid grid-cols-1 items-center gap-12 lg:mt-28 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <ImageReveal
+              src="/images/exterior-corner-800.webp"
+              srcSet="/images/exterior-corner-800.webp 800w, /images/exterior-corner.webp 1560w"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              alt="The white gable end of the pub on the corner of West Street, painted with the words The Greenhill Tavern Free House"
+              loading="lazy"
+              width="1560"
+              height="986"
+              imgClassName="aspect-[16/10] w-full object-cover object-[45%_center]"
+            />
+            <Reveal as="p" className="label mt-4 text-ink/60">The West Street gable, still signwritten by hand</Reveal>
+          </div>
 
-          <Rule className="mt-12 bg-forest-900/20" />
-          <Stagger as="dl" className="divide-y divide-forest-900/15">
-            {facts.map(([t, d]) => (
-              <StaggerItem key={t} className="grid grid-cols-[minmax(0,9.5rem)_1fr] gap-4 py-4">
-                <dt className="font-display text-lg italic text-forest-900">{t}</dt>
-                <dd className="text-[0.95rem] leading-relaxed text-ink/75">{d}</dd>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <div className="lg:col-span-5">
+            <Reveal as="p" className="font-display text-[1.65rem] leading-snug text-fascia">
+              Today you’ll find a well-kept house bitter, a rotating guest or three, honest food from the kitchen and a fire going from October.
+            </Reveal>
+            <Rule className="mt-10 bg-ink/20" />
+            <Stagger as="ol" className="divide-y divide-ink/10">
+              {facts.map(([t, d], i) => (
+                <StaggerItem as="li" key={t} className="grid grid-cols-[2.5rem_1fr] gap-3 py-5">
+                  <span aria-hidden="true" className="font-display text-xl italic text-brass-deep">{String(i + 1).padStart(2, '0')}</span>
+                  <div>
+                    <p className="sign text-[0.95rem] text-fascia">{t}</p>
+                    <p className="mt-1 text-[0.95rem] leading-relaxed text-ink/75">{d}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
         </div>
       </div>
     </section>

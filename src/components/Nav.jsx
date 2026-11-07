@@ -12,34 +12,33 @@ const links = [
 ]
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const btnRef = useRef(null)
   const panelRef = useRef(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lock scroll, close on Escape, keep focus inside the mobile panel
+  // Lock scroll, close on Escape, trap focus in the mobile panel
   useEffect(() => {
     if (!open) return
     document.body.style.overflow = 'hidden'
-    const first = panelRef.current?.querySelector('a')
-    first?.focus()
+    panelRef.current?.querySelector('a')?.focus()
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpen(false)
         btnRef.current?.focus()
       }
       if (e.key === 'Tab' && panelRef.current) {
-        const focusables = [btnRef.current, ...panelRef.current.querySelectorAll('a')]
-        const idx = focusables.indexOf(document.activeElement)
-        if (e.shiftKey && idx <= 0) { e.preventDefault(); focusables.at(-1).focus() }
-        else if (!e.shiftKey && idx === focusables.length - 1) { e.preventDefault(); focusables[0].focus() }
+        const f = [btnRef.current, ...panelRef.current.querySelectorAll('a')]
+        const idx = f.indexOf(document.activeElement)
+        if (e.shiftKey && idx <= 0) { e.preventDefault(); f.at(-1).focus() }
+        else if (!e.shiftKey && idx === f.length - 1) { e.preventDefault(); f[0].focus() }
       }
     }
     document.addEventListener('keydown', onKey)
@@ -49,53 +48,49 @@ export default function Nav() {
     }
   }, [open])
 
-  const solid = scrolled || open
-
   return (
     <motion.header
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ ...springs.snappy, opacity: { duration: 0.5, ease: easeSnap } }}
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-(--ease-snap) ${
-        solid ? 'bg-forest-950/90 shadow-[0_1px_0_rgb(201_163_92/0.18)] backdrop-blur-md' : 'bg-transparent'
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 bg-fascia text-paper transition-shadow duration-500 ease-(--ease-snap) ${scrolled ? 'shadow-[0_10px_30px_-18px_rgb(0_0_0/0.6)]' : ''}`}
     >
-      <nav aria-label="Main" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[4.5rem] lg:px-10">
-        <a href="#top" className="group flex items-baseline gap-2 text-cream-50" onClick={() => setOpen(false)}>
-          <span className="font-display text-xl leading-none tracking-[-0.01em] transition-transform duration-500 ease-(--ease-snap) group-hover:scale-[1.03] sm:text-[1.35rem]">
-            The Green Hill <em className="text-brass-400">Tavern</em>
-          </span>
-          <span className="sr-only">, home</span>
+      {/* Brass pinstripe along the bottom edge of the sign board */}
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-brass/40" />
+      <nav aria-label="Main" className="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+        <a href="#top" className="sign group text-[0.95rem] text-paper sm:text-base" onClick={() => setOpen(false)}>
+          <span className="transition-colors duration-300 ease-(--ease-snap) group-hover:text-brass-light">The Green Hill</span>{' '}
+          <span className="text-brass">Tavern</span>
         </a>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-9 lg:flex">
           {links.map((l, i) => (
-            <motion.li key={l.href} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ ...springs.snappy, delay: 0.1 + i * 0.05 }}>
-              <a href={l.href} className="link-u text-[0.8125rem] font-medium tracking-[0.06em] text-cream-50/85 hover:text-cream-50">
+            <motion.li key={l.href} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springs.snappy, delay: 0.08 + i * 0.05 }}>
+              <a href={l.href} className="link-u text-[0.8rem] font-medium uppercase tracking-[0.14em] text-paper/80 hover:text-paper">
                 {l.label}
               </a>
             </motion.li>
           ))}
-          <li>
-            <a href="#book" className="btn btn-brass min-h-0 px-5 py-2.5 text-xs">Book a table</a>
-          </li>
         </ul>
 
-        <button
-          ref={btnRef}
-          type="button"
-          className="relative -mr-2 flex h-11 w-11 items-center justify-center text-cream-50 lg:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
-          <span aria-hidden="true" className="relative block h-3 w-6">
-            <span className={`absolute left-0 top-0 h-px w-6 bg-current transition-transform duration-500 ease-(--ease-snap) ${open ? 'translate-y-[6px] rotate-45' : ''}`} />
-            <span className={`absolute bottom-0 left-0 h-px w-6 bg-current transition-transform duration-500 ease-(--ease-snap) ${open ? '-translate-y-[5px] -rotate-45' : ''}`} />
-          </span>
-        </button>
+        <div className="flex items-center gap-2">
+          <a href="#book" className="btn btn-brass hidden min-h-10 px-5 py-2 text-[0.8rem] sm:inline-flex">Book a table</a>
+          <button
+            ref={btnRef}
+            type="button"
+            className="-mr-2 flex h-11 w-11 items-center justify-center lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+            <span aria-hidden="true" className="relative block h-3 w-6">
+              <span className={`absolute left-0 top-0 h-px w-6 bg-current transition-transform duration-500 ease-(--ease-snap) ${open ? 'translate-y-[6px] rotate-45' : ''}`} />
+              <span className={`absolute bottom-0 left-0 h-px w-6 bg-current transition-transform duration-500 ease-(--ease-snap) ${open ? '-translate-y-[5px] -rotate-45' : ''}`} />
+            </span>
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -107,22 +102,23 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: easeSnap }}
-            className="fixed inset-x-0 bottom-0 top-16 flex flex-col justify-between overflow-y-auto bg-forest-950 px-6 pb-10 pt-8 lg:hidden"
+            className="on-paper fixed inset-x-0 bottom-0 top-16 flex flex-col justify-between overflow-y-auto bg-paper px-6 pb-10 pt-6 text-ink lg:hidden"
           >
-            <ul className="space-y-1">
+            <ul className="divide-y divide-ink/10">
               {[...links, { href: '#book', label: 'Book a table' }].map((l, i) => (
-                <motion.li key={l.href} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+                <motion.li key={l.href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ ...springs.snappy, delay: 0.04 + i * 0.05 }}>
                   <a href={l.href} onClick={() => setOpen(false)}
-                    className="block py-2 font-display text-[2.6rem] leading-tight tracking-[-0.02em] text-cream-50 active:text-brass-400">
+                    className="flex items-baseline justify-between py-4 font-display text-[2.4rem] leading-none text-ink active:text-brass-deep">
                     {l.label}
+                    <span aria-hidden="true" className="text-xl text-brass-deep">&rarr;</span>
                   </a>
                 </motion.li>
               ))}
             </ul>
-            <div className="mt-10 border-t border-cream-50/15 pt-6 text-sm text-cream-50/75">
+            <div className="mt-10 text-sm text-ink/75">
               <p>{pub.street}, {pub.town} {pub.postcode}</p>
-              <a href={pub.phoneHref} className="mt-1 inline-block text-brass-400">{pub.phone}</a>
+              <a href={pub.phoneHref} className="mt-1 inline-block font-semibold text-brass-deep">{pub.phone}</a>
             </div>
           </motion.div>
         )}

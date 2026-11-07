@@ -7,26 +7,26 @@ export default function Book() {
   )}`
 
   return (
-    <section id="book" aria-labelledby="book-title" className="relative overflow-hidden bg-brass-400 py-24 text-forest-950 sm:py-28 lg:py-32">
-      {/* Faint ruled lines, like a bookings ledger */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_47px,#0f1f18_47px,#0f1f18_48px)]" />
-      <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6">
-        <Reveal as="p" className="eyebrow text-forest-950/80">Bookings</Reveal>
+    <section id="book" aria-labelledby="book-title" className="relative overflow-hidden bg-forest py-24 text-paper sm:py-32 lg:py-40">
+      {/* Arch outline echoing the hero frame */}
+      <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-12 h-[140%] w-[min(46rem,120vw)] -translate-x-1/2 rounded-t-[999px] border border-brass/25" />
+      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <Reveal as="p" className="label text-brass-light">Bookings</Reveal>
         <WordReveal
           as="h2"
           id="book-title"
-          lines={['We’ll keep a table', { text: 'by the fire.', italic: true }]}
-          className="mx-auto mt-5 font-display text-[clamp(2.75rem,7vw,6.5rem)] font-[400] leading-[0.92] tracking-[-0.035em]"
+          lines={['We’ll keep you', { text: 'a seat by the fire.', italic: true }]}
+          className="mx-auto mt-6 text-balance font-display text-[clamp(2.8rem,7vw,6.25rem)] leading-[0.92] tracking-[-0.015em] [&_.italic]:text-brass-light"
         />
-        <Reveal as="p" className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-forest-950/80">
+        <Reveal as="p" className="mx-auto mt-8 max-w-md text-lg leading-relaxed text-paper/80">
           Give us a ring to book. Sundays fill up fast, so call by Friday for a roast.
         </Reveal>
         <Reveal className="mt-10 flex flex-col items-center gap-5">
           {/* TODO: if you use an online booking system (ResDiary, OpenTable, Tablein...), point this button at it */}
-          <a href={pub.phoneHref} className="btn btn-forest px-9 text-sm">
+          <a href={pub.phoneHref} className="btn btn-brass px-9">
             Call {pub.phone} <span aria-hidden="true" className="arrow">&rarr;</span>
           </a>
-          <a href={mailto} className="link-u is-underlined text-sm font-medium">or email us to book</a>
+          <a href={mailto} className="link-u is-underlined text-sm font-medium text-paper/85">or email us to book</a>
         </Reveal>
       </div>
     </section>

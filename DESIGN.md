@@ -1,27 +1,25 @@
-# Design brief: The Green Hill Tavern
+# Design brief: The Green Hill Tavern (v2)
 
-**Feel.** A painted-sign free house on a corner of the High Street: black-and-cream frontage, hanging baskets, a long pine bar with brass foot rail, quarry-tiled floors. The site should feel like the pub's signwriting and chalkboards, not like a restaurant chain or a SaaS template.
+**Feel.** Taken straight from the building: black fascia boards with cream signwritten capitals ("ALES", "FOOD", "REAL ALES"), limewashed walls, a long pine bar with a brass rail. Light and printed rather than dark and moody. No film grain or noise overlays anywhere.
 
-**Hero extraction.** Full-bleed photograph of the real frontage (Architecture C: Full-Bleed Subject). Deep-green scrim rising from the bottom-left. Viewport-scale serif headline anchored bottom-left, one brass CTA. Three hues only: green, cream, brass.
+**Hero.** Asymmetric split (light). The pub's name set huge in a high-contrast serif on the left, with the real frontage in an arch-topped frame on the right, edged by a brass keyline. One CTA.
 
 **Type.**
-- Display: *Fraunces* (variable, optical size axis). High-contrast old-style serif with a soft, hand-cut quality; italics for warmth. Tight negative tracking at display sizes.
-- Text: *Libre Franklin* (variable). Descended from Franklin Gothic, the face of Victorian/Edwardian signage and railway posters. Used small-caps-style for eyebrows (uppercase, wide tracking).
-- Self-hosted via Fontsource (no third-party font requests).
+- Display: *DM Serif Display*. High-contrast, signwriter-style serif; also used in wide-tracked capitals (`.sign`) for board lettering.
+- Text: *Instrument Sans* (variable).
+- Self-hosted via Fontsource.
 
 **Palette.**
 | Token | Hex | Use |
 |---|---|---|
-| `forest-950` | `#0f1f18` | deepest green, footer |
-| `forest-900` | `#14291f` | primary dark surface |
-| `forest-800` | `#1d3a2c` | raised dark surface |
-| `brass-400` | `#c9a35c` | accents on dark (5.9:1 on forest-900) |
-| `brass-700` | `#7a5c25` | accents/text on cream (5.2:1) |
-| `cream-50` | `#f6efe0` | light surface, text on dark |
-| `cream-100` | `#ece2cc` | alternate light surface |
-| `wood-900` | `#24170f` | dark wood surface (gallery) |
-| `ink` | `#1b1712` | body text on cream |
+| `fascia` | `#121a16` | sign boards, nav, menu backdrop, footer |
+| `forest` | `#1f3a2d` | gallery, bookings, accents |
+| `brass` | `#c39a52` | accents on dark |
+| `brass-deep` | `#7a5a22` | accent text on paper (AA) |
+| `paper` | `#f3ecdf` | main surface |
+| `paper-2` | `#e9dfcc` | alternate surface |
+| `ink` | `#1a1d1a` | body text |
 
-**Rhythm.** Hero (photo) → About (cream, asymmetric split) → marquee break (green) → Menu (forest, tabbed bill of fare with dotted leaders) → What's On (cream-100, timetable ledger) → Gallery (dark wood, asymmetric mosaic) → Reviews (cream, one featured quote) → Hours & Find Us (forest, split with map) → Bookings (brass band) → Footer (forest-950).
+**Sections.** Split hero (paper) → centred editorial About with drop cap + photo/facts (paper) → scrolling fascia boards (paper-2) → printed Bill of Fare card on the dark bar (fascia) → weekly fixtures as painted boards + dated ledger (paper-2) → full-bleed filmstrip gallery (forest) → giant rating + quotes (paper) → full-bleed map with hours card (paper-2) → arch-framed bookings (forest) → footer with full-width signwritten name (fascia).
 
-**Motion.** *Physical* personality, three curves: spring-snappy (entries/reveals), spring-smooth (tab indicator, state), ease-snap `cubic-bezier(.22,1,.36,1)` (hover). Masked word reveals on section headings, fade-up on body, clip-path wipes on photographs, slow hero parallax (desktop only). `prefers-reduced-motion` drops to opacity-only; marquee stops.
+**Motion.** Physical personality: spring-snappy reveals, spring-smooth tab pill, ease-snap hovers. Masked word reveals on headings, clip-path wipes on photos, slow parallax inside the hero arch (desktop only). `prefers-reduced-motion` drops to opacity-only and stops the marquee.
